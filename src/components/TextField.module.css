@@ -1,32 +1,49 @@
-*{
-    font-family: 'Red Hat Display', sans-serif;
+* {
+    font-family: "Red Hat Display", sans-serif;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
 }
-.textField{
+.textField {
     border: 2px solid black;
     line-height: 2.5;
     border-radius: 10px;
-    width:20rem;
+    width: 20rem;
     padding-left: 1rem;
     font-size: 1.25rem;
 }
 
-.isInvalid{
+.isInvalid {
     background-color: rgb(250, 192, 186);
 }
 
-.label{
+.label {
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
     font-size: 1.25rem;
     margin-left: 0.5rem;
 }
 
-.error{
+.error {
     margin-left: 0.5rem;
     color: red;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+    .textField {
+        border: 2px solid black;
+        line-height: 2.5;
+        border-radius: 10px;
+        width: 20rem;
+        padding-left: 1rem;
+        font-size: 1.25rem;
+    }
+
+    .label {
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
 }

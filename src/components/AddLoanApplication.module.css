@@ -1,0 +1,46 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    width: 22.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.close-btn {
+    border: 2px red solid;
+    color: white;
+    border-radius: 500px;
+    line-height: 2.5;
+    margin-top: 0.75rem;
+    font-size: 1.25rem;
+    text-align: center;
+    background-color: red;
+    width: 10rem;
+}
+
+.close-btn:hover {
+    border: 2px rgb(100, 1, 1) solid;
+    cursor: pointer;
+    background-color: rgb(160, 37, 37);
+}
+
+@media only screen and (max-width: 350px) {
+    .buttons {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -1,0 +1,169 @@
+:root {
+    --navbar-bg-color: #fa8334;
+    --navbar-color: white;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    font-family: Raleway, sans-serif;
+    background: var(--navbar-bg-color);
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+}
+
+.logo {
+    margin: 0.5em 0 0.5em 6rem;
+}
+
+.navbar {
+    background: var(--navbar-bg-color);
+    text-align: left;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    transform-origin: top;
+    transform: scale(1, 0);
+    transition: transform 500ms ease-in;
+}
+
+.navbar ul {
+    list-style: none;
+}
+.navbar li {
+    align-items: center;
+    margin-bottom: 1.2em;
+    margin-left: 1em;
+}
+
+.navbar a {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: var(--navbar-color);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 250ms ease-in;
+    position: relative;
+}
+
+.navbar a:focus,
+.navbar a:hover {
+    color: #222222;
+    position: relative;
+}
+
+.navbar a::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background: #222222;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.3em;
+    transform-origin: center;
+    transform: scale(0, 1);
+    transition: transform 100ms ease-in;
+}
+
+.navbar a:focus::before,
+.navbar a:hover::before {
+    transform: scale(1, 1);
+    transition: transform 300ms ease-in;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle:checked ~ .navbar {
+    transform: scale(1, 1);
+    transition: transform 500ms ease-in;
+}
+
+.nav-toggle:checked ~ .navbar a {
+    opacity: 1;
+    transition: opacity 250ms 250ms ease-in;
+}
+
+.nav-hamburger-container {
+    position: absolute;
+    height: 100%;
+    left: 1em;
+    top: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nav-toggle-lable {
+    height: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-toggle-lable:hover {
+    cursor: pointer;
+}
+
+.nav-toggle-lable span,
+.nav-toggle-lable span::before,
+.nav-toggle-lable span::after {
+    background: var(--navbar-color);
+    display: block;
+    width: 2em;
+    height: 2px;
+    border-radius: 3px;
+    transform: translate(0, 0);
+    transition: transform 500ms;
+}
+
+.nav-toggle-lable span {
+    position: relative;
+}
+
+.nav-toggle-lable span::before,
+.nav-toggle-lable span::after {
+    content: "";
+    position: absolute;
+}
+
+.nav-toggle-lable span::before {
+    bottom: 8px;
+    left: 0;
+}
+
+.nav-toggle-lable span::after {
+    top: 8px;
+    left: 0;
+}
+
+.nav-toggle:checked ~ .nav-hamburger-container span {
+    transform: rotate(45deg);
+    transition: transform 500ms;
+}
+
+.nav-toggle:checked ~ .nav-hamburger-container span::before {
+    transform: translateY(8px);
+    transition: transform 500ms;
+}
+
+.nav-toggle:checked ~ .nav-hamburger-container span::after {
+    transform: translateY(-8px) rotate(90deg);
+    transition: transform 500ms;
+}
