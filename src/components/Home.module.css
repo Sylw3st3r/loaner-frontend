@@ -1,10 +1,11 @@
 .box {
     margin: 1rem;
-    background-color: white;
-    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);
-    width: 70%;
+    background-color: #cdc8bc;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.3);
+    margin: 2rem;
+    min-height: 20rem;
     border-radius: 5px;
     padding: 1rem;
     line-height: 2;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }

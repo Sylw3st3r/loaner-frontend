@@ -30,6 +30,10 @@ export default function MyLoans() {
 
     const columns = [
         {
+            title: "Id",
+            field: "id",
+        },
+        {
             title: "Name",
             field: "name",
         },

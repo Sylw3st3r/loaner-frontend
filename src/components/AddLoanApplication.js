@@ -44,7 +44,12 @@ export default function AddLoanApplication({ closeHandler, requestBody }) {
     if (isLoading) {
         return (
             <div className={classes2.container}>
-                <Spinner></Spinner>
+                <div className={classes2["lds-ring"]}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         );
     }

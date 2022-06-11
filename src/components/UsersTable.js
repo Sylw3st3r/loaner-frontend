@@ -42,42 +42,21 @@ export default function UsersTable() {
     useEffect(() => {
         (async function () {
             const data = await getUsers(token);
-            setUsersData(data);
+            console.log(data);
+            const data2 = data.map(user => {
+                const { roles, ...rest } = user;
+                const a = {
+                    roles: roles.map(role => role.name.substring(5)).join(","),
+                    ...rest,
+                };
+                return a;
+            });
+
+            setUsersData(data2);
         })();
     }, [token]);
 
     const columns = [
-        {
-            title: "",
-            render: rowData => {
-                const button = (
-                    <span
-                        className=""
-                        title="Read More"
-                        onClick={() => {
-                            nav(`../user/${rowData.id}`);
-                        }}
-                    >
-                        <button
-                            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-                            tabIndex="0"
-                            type="button"
-                        >
-                            <span className="MuiIconButton-label">
-                                <span
-                                    className="material-icons MuiIcon-root"
-                                    aria-hidden="true"
-                                >
-                                    read_more
-                                </span>
-                            </span>
-                            <span className="MuiTouchRipple-root"></span>
-                        </button>
-                    </span>
-                );
-                return button;
-            },
-        },
         {
             title: "Id",
             field: "id",
@@ -97,8 +76,6 @@ export default function UsersTable() {
         {
             title: "Roles",
             field: "roles",
-            render: rowData =>
-                rowData.roles.map(role => role.name.substring(5)).join(","),
         },
         {
             title: "Age",
@@ -119,16 +96,23 @@ export default function UsersTable() {
                             const updatedRows = [...usersData];
                             updatedRows.splice(index, 1);
                             try {
-                                deleteUser(userRow.id, token).then(response => {
-                                    setUsersData(updatedRows);
-                                    resolve();
-                                });
+                                setUsersData(updatedRows);
+                                resolve();
                             } catch (err) {
                                 console.log(err);
                                 reject();
                             }
                         }),
                 }}
+                actions={[
+                    {
+                        icon: "read_more",
+                        tooltip: "Read More",
+                        onClick: (event, rowData) => {
+                            nav(`../user/${rowData.id}`);
+                        },
+                    },
+                ]}
             />
         </Modal>
     );

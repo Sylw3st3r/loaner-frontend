@@ -15,8 +15,53 @@ import ApplicationsForLoaner from "./components/ApplicationsForLoaner";
 import AddLoanApplication from "./components/AddLoanApplication";
 import ApplicationsForLoanTable from "./components/ApplicationsForLoanTable";
 
+const routes = [
+    {
+        path: "/home",
+        element: <Home></Home>,
+        access: ["ROLE_ADMIN", "ROLE_USER", "ROLE_LENDER"],
+    },
+    {
+        path: "/*",
+        element: <Navigate to="/home" />,
+        access: ["ROLE_ADMIN", "ROLE_USER", "ROLE_LENDER"],
+    },
+    {
+        path: "/users",
+        element: <UsersTable></UsersTable>,
+        access: ["ROLE_ADMIN"],
+    },
+    {
+        path: "/user/:userId",
+        element: <UserDetails></UserDetails>,
+        access: ["ROLE_ADMIN"],
+    },
+    { path: "/addloan", element: <AddLoan></AddLoan>, access: ["ROLE_LENDER"] },
+    { path: "/myloans", element: <MyLoans></MyLoans>, access: ["ROLE_LENDER"] },
+    {
+        path: "/loans",
+        element: <LoansTable></LoansTable>,
+        access: ["ROLE_USER"],
+    },
+    {
+        path: "/apply",
+        element: <ApplyForLoaner></ApplyForLoaner>,
+        access: ["ROLE_USER"],
+    },
+    {
+        path: "/applications/lender",
+        element: <ApplicationsForLoaner></ApplicationsForLoaner>,
+        access: ["ROLE_ADMIN"],
+    },
+    {
+        path: "/applications/loans",
+        element: <ApplicationsForLoanTable></ApplicationsForLoanTable>,
+        access: ["ROLE_LENDER"],
+    },
+];
+
 function App() {
-    const { isLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn, roles } = useContext(AuthContext);
 
     if (isLoggedIn) {
         return (
@@ -24,38 +69,15 @@ function App() {
                 <BrowserRouter>
                     <Navbar></Navbar>
                     <Routes>
-                        <Route path="/home" element={<Home></Home>} />
-                        <Route path="/*" element={<Navigate to="/home" />} />
-                        <Route
-                            path="/users"
-                            element={<UsersTable></UsersTable>}
-                        />
-                        <Route
-                            path="/user/:userId"
-                            element={<UserDetails></UserDetails>}
-                        />
-                        <Route path="/addloan" element={<AddLoan></AddLoan>} />
-                        <Route path="/myloans" element={<MyLoans></MyLoans>} />
-                        <Route
-                            path="/loans"
-                            element={<LoansTable></LoansTable>}
-                        />
-                        <Route
-                            path="/apply"
-                            element={<ApplyForLoaner></ApplyForLoaner>}
-                        ></Route>
-                        <Route
-                            path="/applications/lender"
-                            element={
-                                <ApplicationsForLoaner></ApplicationsForLoaner>
-                            }
-                        ></Route>
-                        <Route
-                            path="/applications/loans"
-                            element={
-                                <ApplicationsForLoanTable></ApplicationsForLoanTable>
-                            }
-                        ></Route>
+                        {routes
+                            .filter(r => r.access.includes(roles[0]))
+                            .map((r, index) => (
+                                <Route
+                                    key={index}
+                                    path={r.path}
+                                    element={r.element}
+                                ></Route>
+                            ))}
                     </Routes>
                 </BrowserRouter>
             </Fragment>
@@ -64,8 +86,11 @@ function App() {
         return (
             <BrowserRouter>
                 <Routes>
-                    <Route path="/signin" element={<SignIn></SignIn>} />{" "}
-                    <Route path="/*" element={<SignIn></SignIn>} />
+                    <Route path="/signin" element={<SignIn></SignIn>} />
+                    <Route
+                        path="/*"
+                        element={<Navigate to="/signin"></Navigate>}
+                    />
                     <Route path="/signup" element={<SignUp></SignUp>} />
                 </Routes>
             </BrowserRouter>

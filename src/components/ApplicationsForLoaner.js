@@ -38,7 +38,7 @@ const confirmApplications = async (token, id) => {
 
 export default function ApplicationsForLoaner() {
     const [usersData, setUsersData] = useState([]);
-    const [trigger, setTrigger] = useState(0);
+    const [trigger, setTrigger] = useState(false);
     const { token } = useContext(AuthContext);
 
     useEffect(() => {
@@ -89,10 +89,13 @@ export default function ApplicationsForLoaner() {
                         onClick: (event, rowData) => {
                             if (rowData.accepted === "False") {
                                 try {
-                                    confirmApplications(token, rowData.id);
-                                    setTimeout(() => {
-                                        setTrigger(trigger + 1);
-                                    }, 50);
+                                    (async function () {
+                                        await confirmApplications(
+                                            token,
+                                            rowData.id
+                                        );
+                                        setTrigger(!trigger);
+                                    })();
                                 } catch (err) {
                                     console.log(err);
                                 }
