@@ -29,7 +29,7 @@ const routes = [
     {
         to: "/applications/loans",
         name: "Loan Applications",
-        icon: "perm_identity",
+        icon: "list",
         access: ["ROLE_LENDER"],
     },
 ];

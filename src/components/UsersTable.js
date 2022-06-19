@@ -89,21 +89,6 @@ export default function UsersTable() {
                 title="Users"
                 data={usersData}
                 columns={columns}
-                editable={{
-                    onRowDelete: userRow =>
-                        new Promise((resolve, reject) => {
-                            const index = userRow.tableData.id;
-                            const updatedRows = [...usersData];
-                            updatedRows.splice(index, 1);
-                            try {
-                                setUsersData(updatedRows);
-                                resolve();
-                            } catch (err) {
-                                console.log(err);
-                                reject();
-                            }
-                        }),
-                }}
                 actions={[
                     {
                         icon: "read_more",

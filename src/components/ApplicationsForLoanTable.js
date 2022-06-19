@@ -15,6 +15,7 @@ const getLoans = async (token, id) => {
         }
     );
     const data = await response.json();
+    console.log(data);
     return data.filter(loan => id === loan.applicationReceiver.id);
 };
 
@@ -47,26 +48,24 @@ export default function ApplicationsForLoanTable() {
             const data = await getLoans(token, id);
 
             const d = data.map(application => {
-                const { accepted, ...rest } = application;
-                return { ...rest, accepted: accepted ? "True" : "False" };
+                const { accepted, applicationCreator, loanEntity, ...rest } =
+                    application;
+                const interestRate = loanEntity.interestRate;
+                const sum = loanEntity.sum;
+                const nameC = `${applicationCreator.firstName} ${applicationCreator.lastName}`;
+                const email = applicationCreator.email;
+
+                console.log(interestRate, sum, nameC, email);
+
+                return {
+                    ...rest,
+                    accepted: accepted ? "True" : "False",
+                    interestRate: interestRate,
+                    sum: sum,
+                    nameC: nameC,
+                    email: email,
+                };
             });
-
-            console.log(data);
-            /* setUsersData(
-                data.map(appplication => {
-                    const { applicationCreator, applicationReciver, ...rest } =
-                        appplication;
-
-                    return {
-                        interestRate:
-                            applicationReciver.loanEntity.interestRate,
-                        sum: applicationReciver.loanEntity.sum,
-                        nameC: `${applicationCreator.firstName} ${applicationCreator.lastName}`,
-                        email: applicationCreator.email,
-                        ...rest,
-                    };
-                })
-            ); */
 
             setUsersData(d);
         })();
@@ -86,10 +85,14 @@ export default function ApplicationsForLoanTable() {
             field: "description",
         },
         {
-            title: "Accepted",
-            field: "accepted",
+            title: "Application Creator",
+            field: "nameC",
         },
-        /*        {
+        {
+            title: "Email",
+            field: "email",
+        },
+        {
             title: "Sum",
             field: "sum",
         },
@@ -97,14 +100,10 @@ export default function ApplicationsForLoanTable() {
             title: "Interest Rate",
             field: "interestRate",
         },
-         {
-            title: "Application Creator",
-            field: "nameC",
-        },
         {
-            title: "Email",
-            field: "email",
-        }, */
+            title: "Accepted",
+            field: "accepted",
+        },
     ];
 
     return (
