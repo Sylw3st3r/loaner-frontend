@@ -1,6 +1,5 @@
 .container {
     padding-top: 4.6rem;
-    padding-bottom: 1.5rem;
     min-height: 100vh;
     background-image: url("./bank.jpg");
     background-size: cover;
@@ -13,10 +12,18 @@
 }
 
 .name {
-    display: inline-block;
     color: rgb(252, 252, 252);
+    background-color: #9c9c8a;
     text-shadow: 2px 2px black;
+    width: 100vw;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(15px);
+
     position: absolute;
     bottom: 1rem;
     right: 1rem;
+    text-align: right;
+    padding: 0.5rem;
 }

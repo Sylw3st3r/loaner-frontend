@@ -19,6 +19,12 @@ const routes = [
         access: ["ROLE_LENDER"],
     },
     { to: "/loans", name: "Loans", icon: "list", access: ["ROLE_USER"] },
+    {
+        to: "/loanshistory",
+        name: "My loans",
+        icon: "view_list",
+        access: ["ROLE_USER"],
+    },
     { to: "/apply", name: "Apply", icon: "send", access: ["ROLE_USER"] },
     {
         to: "/applications/lender",
@@ -35,7 +41,7 @@ const routes = [
 ];
 
 export default function Navbar() {
-    const { logout, roles, username } = useContext(AuthContext);
+    const { logout, roles } = useContext(AuthContext);
 
     return (
         <header className={classes.header}>

@@ -14,6 +14,7 @@ import ApplyForLoaner from "./components/ApplyForLoaner";
 import ApplicationsForLoaner from "./components/ApplicationsForLoaner";
 import AddLoanApplication from "./components/AddLoanApplication";
 import ApplicationsForLoanTable from "./components/ApplicationsForLoanTable";
+import LoansHistory from "./components/LoansHistory";
 
 const routes = [
     {
@@ -46,6 +47,11 @@ const routes = [
     {
         path: "/apply",
         element: <ApplyForLoaner></ApplyForLoaner>,
+        access: ["ROLE_USER"],
+    },
+    {
+        path: "/loanshistory",
+        element: <LoansHistory></LoansHistory>,
         access: ["ROLE_USER"],
     },
     {
