@@ -7,9 +7,11 @@ import Spinner from "./Spinner";
 import Modal from "./Modal";
 import { AuthContext } from "../context/auth-context";
 import Modal2 from "./Modal2";
+import Dialog from "./Dialog";
 
 export default function ApplyForLoaner() {
     const [isLoading, setIsLoading] = useState(false);
+    const [dialogState, setDialogState] = useState(null);
     const { token, email } = useContext(AuthContext);
 
     async function addApplication(applicationData) {
@@ -30,8 +32,9 @@ export default function ApplyForLoaner() {
                     }),
                 }
             );
+            setDialogState("Application has been sent");
         } catch (error) {
-            console.log(error);
+            setDialogState("Something went wrong");
         }
         setIsLoading(false);
     }
@@ -46,6 +49,12 @@ export default function ApplyForLoaner() {
     }
     return (
         <Modal>
+            {dialogState && (
+                <Dialog
+                    message={dialogState}
+                    closeHandler={setDialogState.bind(null, null)}
+                ></Dialog>
+            )}
             <Formik
                 initialValues={{
                     name: "",

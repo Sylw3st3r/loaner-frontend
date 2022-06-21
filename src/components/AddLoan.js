@@ -7,10 +7,12 @@ import Spinner from "./Spinner";
 import Modal from "./Modal";
 import { AuthContext } from "../context/auth-context";
 import Modal2 from "./Modal2";
+import Dialog from "./Dialog";
 
 export default function AddLoan() {
     const [isLoading, setIsLoading] = useState(false);
     const { token, email } = useContext(AuthContext);
+    const [dialogState, setDialogState] = useState(null);
 
     async function addLoanHandler(loanData) {
         setIsLoading(true);
@@ -23,8 +25,9 @@ export default function AddLoan() {
                 },
                 body: JSON.stringify({ ...loanData, creatorLogin: email }),
             });
+            setDialogState("Loan offer has been created");
         } catch (error) {
-            console.log(error);
+            setDialogState("Something went wrong");
         }
         setIsLoading(false);
     }
@@ -45,6 +48,12 @@ export default function AddLoan() {
     }
     return (
         <Modal>
+            {dialogState && (
+                <Dialog
+                    message={dialogState}
+                    closeHandler={setDialogState.bind(null, null)}
+                ></Dialog>
+            )}
             <Formik
                 initialValues={{
                     name: "",

@@ -2,6 +2,7 @@ import MaterialTable from "material-table";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth-context";
 import AddLoanApplication from "./AddLoanApplication";
+import Dialog from "./Dialog";
 import Modal from "./Modal";
 
 const getLoans = async token => {
@@ -22,6 +23,7 @@ const getLoans = async token => {
 export default function LoansTable() {
     const [usersData, setUsersData] = useState([]);
     const [body, setBody] = useState(null);
+    const [dialogState, setDialogState] = useState(null);
     const { token, email } = useContext(AuthContext);
 
     useEffect(() => {
@@ -58,7 +60,17 @@ export default function LoansTable() {
     return (
         <Fragment>
             {body && (
-                <AddLoanApplication closeHandler={setBody} requestBody={body} />
+                <AddLoanApplication
+                    closeHandler={setBody}
+                    openDialog={setDialogState}
+                    requestBody={body}
+                />
+            )}
+            {dialogState && (
+                <Dialog
+                    message={dialogState}
+                    closeHandler={setDialogState.bind(null, null)}
+                ></Dialog>
             )}
             <Modal>
                 <MaterialTable

@@ -1,5 +1,6 @@
 .container {
     padding-top: 4.6rem;
+    padding-bottom: 1.5rem;
     min-height: 100vh;
     background-image: url("./bank.jpg");
     background-size: cover;
@@ -8,4 +9,14 @@
     flex-direction: column;
     display: flex;
     justify-content: center;
+    position: relative;
+}
+
+.name {
+    display: inline-block;
+    color: rgb(252, 252, 252);
+    text-shadow: 2px 2px black;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 }

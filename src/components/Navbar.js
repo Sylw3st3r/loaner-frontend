@@ -35,7 +35,7 @@ const routes = [
 ];
 
 export default function Navbar() {
-    const { logout, roles } = useContext(AuthContext);
+    const { logout, roles, username } = useContext(AuthContext);
 
     return (
         <header className={classes.header}>

@@ -8,9 +8,13 @@ import * as Yup from "yup";
 import Spinner from "./Spinner";
 import Modal2 from "./Modal2";
 import Modal from "./Modal";
+import Dialog from "./Dialog";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
     const [isLoading, setIsLoading] = useState(false);
+    const [dialogState, setDialogState] = useState(null);
+    const nav = useNavigate();
 
     async function signUpHandler(signUpData) {
         setIsLoading(true);
@@ -22,8 +26,9 @@ export default function Signup() {
                 },
                 body: JSON.stringify(signUpData),
             });
+            setDialogState("Account has been created");
         } catch (error) {
-            console.log(error);
+            setDialogState("Something went wrong");
         }
         setIsLoading(false);
     }
@@ -67,6 +72,15 @@ export default function Signup() {
             >
                 {formik => (
                     <Modal2>
+                        {dialogState && (
+                            <Dialog
+                                message={dialogState}
+                                closeHandler={() => {
+                                    setDialogState(null);
+                                    nav("../signin");
+                                }}
+                            ></Dialog>
+                        )}
                         <Form className={classes.form}>
                             <h1>Sign Up</h1>
                             <TextField

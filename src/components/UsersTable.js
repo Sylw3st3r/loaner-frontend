@@ -4,21 +4,6 @@ import { AuthContext } from "../context/auth-context";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 
-const deleteUser = async (id, token) => {
-    const response = await fetch(
-        `https://arcane-ocean-08535.herokuapp.com/users/id=${id}`,
-        {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        }
-    );
-    console.log(response.status);
-    return;
-};
-
 const getUsers = async token => {
     const response = await fetch(
         "https://arcane-ocean-08535.herokuapp.com/users",

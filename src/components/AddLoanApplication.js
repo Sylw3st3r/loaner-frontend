@@ -3,11 +3,14 @@ import * as Yup from "yup";
 import TextField from "./TextField";
 import { Formik, Form } from "formik";
 import classes from "./SignUp.module.css";
-import Spinner from "./Spinner";
 import { AuthContext } from "../context/auth-context";
 import classes2 from "./AddLoanApplication.module.css";
 
-export default function AddLoanApplication({ closeHandler, requestBody }) {
+export default function AddLoanApplication({
+    closeHandler,
+    requestBody,
+    openDialog,
+}) {
     const [isLoading, setIsLoading] = useState(false);
     const { token } = useContext(AuthContext);
 
@@ -25,8 +28,9 @@ export default function AddLoanApplication({ closeHandler, requestBody }) {
                     body: JSON.stringify(loanData),
                 }
             );
+            openDialog("Application for loan has been sent");
         } catch (error) {
-            console.log(error);
+            openDialog("Something went wrong");
         }
         setIsLoading(false);
         closeHandler(null);

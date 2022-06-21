@@ -52,6 +52,7 @@ export default function ApplicationsForLoaner() {
                     accepted: accepted ? "True" : "False",
                 };
             });
+            console.log(newData);
             setUsersData(newData);
         })();
     }, [token, trigger]);
